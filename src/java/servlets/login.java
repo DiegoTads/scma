@@ -46,7 +46,7 @@ public class login extends HttpServlet {
                 Funcionario funcionario = new Funcionario();
                 FuncionarioDAO fDAO = new FuncionarioDAO();
 
-                funcionario = fDAO.buscarPorUsuarioS(usuario, senha);
+                funcionario = fDAO.buscarPorUsuario(usuario, Integer.parseInt(senha));
 
                 if(funcionario.getLogin()==null)
                 {

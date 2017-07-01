@@ -158,7 +158,7 @@ public class EditarOrdemDeServicoComputador1 extends HttpServlet {
                 }
                 else
                 {
-                    ocDAO.alterarPorProtocolo(computador);
+                    ocDAO.editar(computador);
                     response.sendRedirect("crud_computadores.jsp");
 
                 }          

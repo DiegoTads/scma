@@ -5,14 +5,45 @@
  */
 package modelos;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
 /**
  *
  * @author Diego
  */
-public class Telefone extends Aparelho
+@Entity
+@Table
+@NamedQueries
+(
+        @NamedQuery(name="Telefones.BuscarTelefones", query="SELECT * FROM TELEFONES"))
+
+public class Telefone
 {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int protocolo;
     private String caixa;
     private String operadora;
+    private String dataEntrada;
+    private String dataCompra;
+    private String cliente;
+    private String garantia;
+    private String marca;
+    private String modelo;
+    private String seriall;
+    private String acessorios;
+    private String defeito;
+    private String estado;
+    private float valor;
+    private String situacao;
+    private String observacoes;
+    private String atendente;
 
     public Telefone(int protocolo, String cliente, String caixa, String dataEntrada, String dataCompra, String operadora, String garantia, String marca, String modelo, String seriall, String acessorios, String defeito, String estado, float valor, String situacao, String observacoes, String atendente) {
         this.protocolo = protocolo;

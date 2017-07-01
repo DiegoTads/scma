@@ -43,7 +43,7 @@ public class ExcluirOrdemDeServicoComputador1 extends HttpServlet {
             if(request.getParameter("excluir").equalsIgnoreCase("Sim"))
             {
                 computador.setProtocolo(Integer.parseInt(String.valueOf(request.getParameter("protocolo"))));
-                ocDAO.removerPorProtocolo(computador);
+                ocDAO.excluir(computador);
                 response.sendRedirect("crud_computadores.jsp");
             }
             

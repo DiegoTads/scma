@@ -6,14 +6,46 @@
 package modelos;
 
 import conexaoDAO.OrdemComputadorDAO;
+import java.io.Serializable;
 import java.util.Random;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author Diego
  */
-public class Computadores extends Aparelho
+@Entity
+@Table
+@NamedQueries
+(
+        @NamedQuery(name="Computadores.BuscarComputador", query="SELECT * FROM COMPUTADORES"))
+
+public class Computadores implements Serializable
 { 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int protocolo;
+    private String cliente;
+    private String dataEntrada;
+    private String dataCompra;
+    private String garantia;
+    private String marca;
+    private String modelo;
+    private String seriall;
+    private String acessorios;
+    private String defeito;
+    private String estado;
+    private float valor;
+    private String situacao;
+    private String observacoes;
+    private String atendente;
+        
     public Computadores(int protocolo, String cliente, String dataEntrada, String dataCompra, String garantia, String marca, String modelo, String seriall, String acessorios, String defeito, String estado, float valor, String situacao, String observacoes, String atendente) {
         this.protocolo = protocolo;
         this.cliente = cliente;
@@ -168,11 +200,6 @@ public class Computadores extends Aparelho
             serial=serial+String.valueOf(0+r.nextInt()*10);
         }
         
-        if(ocDAO.jaExisteSerial(serial)==true)
-        {
-            serial=computadores.gerarSeriall();
-        }
- 
         return serial;
     }
 }

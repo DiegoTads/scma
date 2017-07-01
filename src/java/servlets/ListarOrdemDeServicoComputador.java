@@ -44,7 +44,7 @@ public class ListarOrdemDeServicoComputador extends HttpServlet {
             OrdemComputadorDAO ocDAO = new OrdemComputadorDAO();
             RequestDispatcher rd = null;
             
-            arrayComp=ocDAO.getLista();
+            arrayComp=ocDAO.listar();
             
             if(arrayComp.size()==0)
             {

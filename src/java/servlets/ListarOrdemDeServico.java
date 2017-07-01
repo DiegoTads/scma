@@ -42,7 +42,7 @@ public class ListarOrdemDeServico extends HttpServlet {
             OrdemTelefoneDAO otDAO = new OrdemTelefoneDAO();
             RequestDispatcher rd = null;
             
-            arrayTel=otDAO.getLista();
+            arrayTel=otDAO.listar();
             
             if(arrayTel.size()==0)
             {

@@ -43,7 +43,7 @@ public class RedefinirSenha extends HttpServlet {
             Funcionario funcionario = new Funcionario();
             FuncionarioDAO fDAO = new FuncionarioDAO();
             
-            funcionario = fDAO.buscarPorUsuario(String.valueOf(request.getParameter("usuario")), String.valueOf(request.getParameter("pergunta")));
+            funcionario = fDAO.buscarRedefinirSenha(String.valueOf(request.getParameter("usuario")), String.valueOf(request.getParameter("pergunta")));
             
             if(!request.getParameter("usuario").equals("") && !request.getParameter("senha").equals("") && !request.getParameter("nome").equals("") && !request.getParameter("pergunta").equals("") && !request.getParameter("resposta").equals(""))
             {
@@ -58,7 +58,7 @@ public class RedefinirSenha extends HttpServlet {
                         f.setPergunta(funcionario.getPergunta());
                         f.setResposta(funcionario.getResposta());
 
-                        fDAO.alterarPorId(f);
+                        fDAO.editar(f);
 
                         response.sendRedirect("index.jsp");
                     }

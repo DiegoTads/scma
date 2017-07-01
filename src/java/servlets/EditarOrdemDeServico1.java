@@ -160,7 +160,7 @@ public class EditarOrdemDeServico1 extends HttpServlet {
                 }
                 else
                 {
-                    otDAO.alterarPorProtocolo(telefone);
+                    otDAO.editar(telefone);
                     response.sendRedirect("crud_telefones.jsp");
 
                 }          

@@ -41,8 +41,10 @@ public class ExcluirOrdemDeServico extends HttpServlet {
             RequestDispatcher rd = null;
             OrdemTelefoneDAO otDAO = new OrdemTelefoneDAO();
             Telefone telefone = new Telefone();
+            Telefone tel = new Telefone();
+            tel.setProtocolo(Integer.parseInt(String.valueOf(request.getParameter("protocolo"))));
             
-            telefone=otDAO.buscarPorProtocolo(Integer.parseInt(String.valueOf(request.getParameter("protocolo"))));
+            telefone=otDAO.buscar(tel);
             
             if(telefone.getProtocolo()!=Integer.parseInt(String.valueOf(request.getParameter("protocolo"))))
             {

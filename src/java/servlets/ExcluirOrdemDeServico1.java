@@ -43,7 +43,7 @@ public class ExcluirOrdemDeServico1 extends HttpServlet {
             if(request.getParameter("excluir").equalsIgnoreCase("Sim"))
             {
                 telefone.setProtocolo(Integer.parseInt(String.valueOf(request.getParameter("protocolo"))));
-                otDAO.removerPorProtocolo(telefone);
+                otDAO.excluir(telefone);
                 response.sendRedirect("crud_telefones.jsp");
             }
             

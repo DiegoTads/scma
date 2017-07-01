@@ -42,8 +42,10 @@ public class ExcluirOrdemDeServicoComputador extends HttpServlet {
             RequestDispatcher rd = null;
             OrdemComputadorDAO ocDAO = new OrdemComputadorDAO();
             Computadores computador = new Computadores();
+            Computadores comp = new Computadores();
+            comp.setProtocolo(Integer.parseInt(String.valueOf(request.getParameter("protocolo"))));
             
-            computador=ocDAO.buscarPorProtocolo(Integer.parseInt(String.valueOf(request.getParameter("protocolo"))));
+            computador=ocDAO.buscar(comp);
             
             if(computador.getProtocolo()!=Integer.parseInt(String.valueOf(request.getParameter("protocolo"))))
             {

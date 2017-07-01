@@ -5,12 +5,28 @@
  */
 package modelos;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
 /**
  *
  * @author Diego
  */
+@Entity
+@Table
+@NamedQueries
+(
+        @NamedQuery(name="Funcionario.BuscarFuncionarios", query="SELECT * FROM FUNCIONARIOS"))
+
 public class Funcionario 
 {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     private String nome;
     private String login;

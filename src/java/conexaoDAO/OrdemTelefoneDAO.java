@@ -1,6 +1,5 @@
 package conexaoDAO;
 
-import conexaoBD.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,14 +8,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import modelos.Funcionario;
 import modelos.Telefone;
 
 /**
  *
  * @author gabriel
  */
-public class OrdemTelefoneDAO {
+@Stateless
+public class OrdemTelefoneDAO
+{
+    @PersistenceContext
+    private EntityManager em;
 
+    public int adicionar(Telefone telefone) 
+    {
+        em.persist(telefone);
+        Query query=em.createQuery("SELECT * FROM TELEFONES WHERE SERIALL=ser");
+        query.setParameter("ser", telefone.getSeriall());
+        List list=query.getResultList();
+        telefone=(Telefone) list.get(0);
+        return telefone.getProtocolo();
+    }
+
+    public ArrayList<Telefone> listar() 
+    {
+        return (ArrayList<Telefone>) em.createNamedQuery("Telefones.BuscarTelefones").getResultList();
+    }
+
+    public void editar(Telefone telefone) 
+    {
+        em.merge(telefone);
+    }
+
+    public void excluir(Telefone telefone) 
+    {
+        em.remove(buscar(telefone));
+    }
+
+    public Telefone buscar(Telefone telefone) 
+    {
+        return em.find(Telefone.class, telefone.getProtocolo());
+    }
+
+    /*
     Connection connection;
 
     public OrdemTelefoneDAO() {
@@ -194,5 +233,6 @@ public class OrdemTelefoneDAO {
             Logger.getLogger(OrdemTelefoneDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
-    }
+    }*/
+
 }

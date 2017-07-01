@@ -5,23 +5,77 @@
  */
 package conexaoDAO;
 
-import conexaoBD.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import modelos.Computadores;
 import modelos.Funcionario;
+import modelos.Telefone;
 
 /**
  *
  * @author Diego
  */
+@Stateless
 public class FuncionarioDAO 
 {
+    @PersistenceContext
+    private EntityManager em;
+    
+    public void adicionar(Funcionario funcionario) 
+    {
+        em.persist(funcionario);
+    }
+
+    public ArrayList<Funcionario> listar() 
+    {
+        return (ArrayList<Funcionario>) em.createNamedQuery("Funcionario.BuscarFuncionarios").getResultList();
+    }
+
+    public void editar(Funcionario funcionario) 
+    {
+        em.merge(funcionario);
+    }
+
+    public void excluir(Funcionario funcionario) 
+    {
+        em.remove(buscar(funcionario));
+    }
+
+    public Funcionario buscar(Funcionario funcionario) 
+    {
+        return em.find(Funcionario.class, funcionario.getId());
+    }
+    
+    public Funcionario buscarPorUsuario(String usuario, int senha)
+    {
+        Query query=em.createQuery("SELECT * FROM FUNCIONARIOS WHERE LOGIN=user AND SENHA=pass");
+        query.setParameter("user", usuario);
+        query.setParameter("pass", senha);
+        List list=query.getResultList();
+        return (Funcionario) list.get(0);
+    }
+    
+    public Funcionario buscarRedefinirSenha(String usuario, String pergunta)
+    {
+        Query query=em.createQuery("SELECT * FROM FUNCIONARIOS WHERE LOGIN=user AND PERGUNTA=perg");
+        query.setParameter("user", usuario);
+        query.setParameter("perg", pergunta);
+        List list=query.getResultList();
+        return (Funcionario) list.get(0);
+    }
+    
+    
+/*    
     Connection connection;
 
     public FuncionarioDAO() {
@@ -107,5 +161,5 @@ public class FuncionarioDAO
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return f;
-    }
+    }*/
 }

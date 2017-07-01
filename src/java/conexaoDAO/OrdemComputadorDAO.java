@@ -1,6 +1,5 @@
 package conexaoDAO;
 
-import conexaoBD.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,15 +8,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import modelos.Computadores;
+import modelos.Funcionario;
 import modelos.Telefone;
 
 /**
  *
  * @author gabriel
  */
-public class OrdemComputadorDAO {
+@Stateless
+public class OrdemComputadorDAO
+{
+    @PersistenceContext
+    private EntityManager em;
+    
+    public int adicionar(Computadores computadores) 
+    {
+        em.persist(computadores);
+         Query query=em.createQuery("SELECT * FROM COMPUTADORES WHERE SERIALL=ser");
+        query.setParameter("ser", computadores.getSeriall());
+        List list=query.getResultList();
+        computadores=(Computadores) list.get(0);
+        return computadores.getProtocolo();
+    }
 
+    public ArrayList<Computadores> listar() 
+    {
+        return (ArrayList<Computadores>) em.createNamedQuery("Computadores.BuscarComputador").getResultList();
+    }
+
+    public void editar(Computadores computadores) 
+    {
+        em.merge(computadores);
+    }
+
+    public void excluir(Computadores computadores) 
+    {
+        em.remove(buscar(computadores));
+    }
+
+    public Computadores buscar(Computadores computadores) 
+    {
+        return em.find(Computadores.class, computadores.getProtocolo());
+    }   
+/*
     Connection connection;
 
     public OrdemComputadorDAO() {
@@ -210,5 +248,5 @@ public class OrdemComputadorDAO {
         }
         
         return false;
-    }
+    }*/
 }
